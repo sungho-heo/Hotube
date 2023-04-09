@@ -19,9 +19,9 @@ header
                             i.fa-solid.fa-user-large
                         else
                             if user.socialOnly
-                            img.header__avatar(src=user.avatarUrl)
-                        else
-                            img.header__avatar(src="/" + user.avatarUrl)
+                                img.header__avatar(src=user.avatarUrl)
+                            else
+                                img.header__avatar(src="/" + user.avatarUrl)
             else
                 li
                     a(href="/login") Log in

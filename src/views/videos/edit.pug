@@ -1,0 +1,11 @@
+extends ../base.pug
+
+block content 
+    h4 Edit Video
+    form(method="POST")
+        input(placeholder="Title", required type="text", name="title", maxlength=30, value=video.title)
+        input(placeholder="description", required, type="text", name="description", minlength=30,value=video.description)
+        input(placeholder="hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join())
+        input(value="save",type="submit")
+    br
+    a(href="delete") Delete video &rarr; 

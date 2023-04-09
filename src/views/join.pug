@@ -1,0 +1,18 @@
+extends base.pug
+
+block content
+    if errorMessage
+        span=errorMessage
+    div
+        form(method="POST")
+            input(type="email", name="email",required, placeholder="Email" )
+            input(type="text", name="username",required, placeholder="Username" )
+            input(type="password", name="password",required, placeholder="Password" )
+            input(type="password", name="password2",required, placeholder="Confirm Password" )
+            input(type="text", name="nickname",required, placeholder="Nickname" )
+            input(type="text", name="location", placeholder="Location" )
+            input(type="submit", value="Join")
+            include partials/social-login.pug
+        div.auth-switch
+            span Already have an account? 
+            a(href="/login") Log in &rarr;

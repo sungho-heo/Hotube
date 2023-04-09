@@ -1,0 +1,26 @@
+header
+    a(href="/").header__logo
+        i.fa.fa-paw
+    nav
+        ul
+            li
+                a(href="/search")
+                    i.fa-solid.fa-magnifying-glass
+            if loggedIn
+                li
+                    a(href="/videos/upload") Upload Video
+                li
+                    a(href="/users/edit") Edit Profile 
+                li
+                    a(href="/users/logout") Log out
+                li
+                    a(href=`/users/${user._id}`)
+                        if user.avatarUrl === None
+                            i.fa-solid.fa-user-large
+                        else
+                            img.header__avatar(src="/" + user.avatarUrl)
+            else
+                li
+                    a(href="/login") Log in
+                li
+                    a(href="/join").header__btn Join

@@ -1,0 +1,15 @@
+extends ../base.pug
+include ../mixins/video.pug
+
+block content
+    div.profile__data
+        if user.avatarUrl === None
+            i.fa-solid.fa-user-large.avatar
+        else
+            img(src="/" + user.avatarUrl).avatar
+        h3=user.nickname
+    div.video__grid
+        each video in user.videos
+                +video(video)
+        else
+            span.empty__message Sorry nothing found.

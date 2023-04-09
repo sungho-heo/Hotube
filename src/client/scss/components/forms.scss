@@ -1,0 +1,43 @@
+form{
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 20px;
+  background-color: rgba($color: #000000, $alpha:0.5);
+  border: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+}
+
+input:not(input[type="range"]),
+input[type="submit"]{
+      all: unset;
+      padding: 15px 15px;
+      border-radius: 10px;
+      background-color: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 5px;
+      font-size: 18px;
+      width: 90%;
+      &::placeholder{
+        color: rgba(255,255,255,0.7);
+      }
+}
+
+input[type="submit"],
+.social__btn{
+    padding: 13px 22px; 
+    border-radius: 5px;
+    background: white !important;
+    color: rgba($color: $login, $alpha: 0.9) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center !important;
+    display: block;
+    border: none;
+    &:focus{
+      outline: none;
+    }
+    &:disabled{
+      opacity: 0.6;
+      pointer-events: none;
+    }
+}

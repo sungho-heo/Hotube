@@ -12,7 +12,8 @@ const s3 = new S3Client({
 
 const multerUploder = multerS3({
     s3: s3,
-    bucket: "ho-tube"
+    bucket: "ho-tube",
+    acl: "public-read",
 });
 
 export const middleware = (req, res, next) => {

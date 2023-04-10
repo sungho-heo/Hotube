@@ -165,6 +165,7 @@ export const postEdit = async (req, res) => {
   const updateEmail = req.session.user.email;
   const updateUsername = req.session.user.username;
   const file = req.file;
+  const isHeroku = res.locals.isHeroku;
   if (email !== updateEmail || username !== updateUsername) {
     const findUser = await User.findOne({
       $or: [{ email: updateEmail, username: updateUsername }],
@@ -179,7 +180,7 @@ export const postEdit = async (req, res) => {
   const userUpdate = await User.findByIdAndUpdate(
     id,
     {
-      avatarUrl: file ? file.location : avatarUrl,
+      avatarUrl: file ? (isHeroku ? file.location:file.path) : avatarUrl,
       email: email,
       username: username,
       nickname: nickname,

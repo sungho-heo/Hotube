@@ -15,13 +15,16 @@ header
                     a(href="/users/logout") Log out
                 li
                     a(href=`/users/${user._id}`)
-                        if user.avatarUrl === ""
+                        if user.avatarUrl === None
                             i.fa-solid.fa-user-large
                         else
                             if user.socialOnly
-                                img.header__avatar(crossorigin="anonymous", src=user.avatarUrl)
+                                img.header__avatar(crossorigin="anonymous", src= user.avatarUrl)
                             else
+                                img.img.header__avatar(crossorigin="anonymous", src="/" + user.avatarUrl)
+                            if isHeroku
                                 img.header__avatar(crossorigin="anonymous", src=user.avatarUrl)
+
             else
                 li
                     a(href="/login") Log in

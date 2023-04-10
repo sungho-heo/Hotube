@@ -10,15 +10,24 @@ const s3 = new S3Client({
     },
 });
 
-const multerUploder = multerS3({
+const s3ImageUploder = multerS3({
     s3: s3,
-    bucket: "ho-tube",
+    bucket: "ho-tube/avatars",
     acl: "public-read",
 });
+
+const s3VideoUploder = multerS3({
+    s3: s3,
+    bucket: "ho-tube/videos",
+    acl: "public-read",
+});
+
+const isHeroku = process.env.NODE_ENV === "production";
 
 export const middleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.user = req.session.user || {};
+    res.locals.isHeroku = isHeroku;
     next();
 };
 
@@ -41,12 +50,13 @@ export const publicMiddleware = (req, res, next) => {
 };
 
 export const uploadAvatar = multer({
-    dest: "uploads/avatar",
-    limits: { filesize: 30000 },
-    storage: multerUploder,
-});
+  dest: "uploads/avatar",
+  limits: { filesize: 30000 },
+  storage: isHeroku ? s3ImageUploder : undefined,
+})
+
 export const uploadVideo = multer({
-    dest: "uploads/videos",
-    limits: { filesize: 100000 },
-    storage: multerUploder,
-});
+  dest: "uploads/videos",
+  limits: { filesize: 100000 },
+  storage: isHeroku ? s3VideoUploder : undefined,
+})

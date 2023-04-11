@@ -12,22 +12,22 @@ const s3 = new S3Client({
 
 const s3ImageUploder = multerS3({
     s3: s3,
-    bucket: "ho-tube/avatars",
+    bucket: "ho-tube",
     acl: "public-read",
     key: function (req, file, cb) {
-        const newFileName = Date.now() + "-" + file.originalname;
-        const fullPath = "images/" + newFileName;
-        cb(null, fullPath);
+        const newFileName = Date.now() + "-" + file.originalname
+        const fullPath = "avatars/" + newFileName
+        cb(null, fullPath)
     },
 });
 
 const s3VideoUploder = multerS3({
     s3: s3,
-    bucket: "ho-tube/videos",
+    bucket: "ho-tube",
     acl: "public-read",
     key: function (req, file, cb) {
         const newFileName = Date.now() + "-" + file.originalname
-        const fullPath = "images/" + newFileName
+        const fullPath = "videos/" + newFileName
         cb(null, fullPath)
     },
 });

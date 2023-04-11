@@ -14,12 +14,22 @@ const s3ImageUploder = multerS3({
     s3: s3,
     bucket: "ho-tube/avatars",
     acl: "public-read",
+    key: function (req, file, cb) {
+        const newFileName = Date.now() + "-" + file.originalname;
+        const fullPath = "images/" + newFileName;
+        cb(null, fullPath);
+    },
 });
 
 const s3VideoUploder = multerS3({
     s3: s3,
     bucket: "ho-tube/videos",
     acl: "public-read",
+    key: function (req, file, cb) {
+        const newFileName = Date.now() + "-" + file.originalname
+        const fullPath = "images/" + newFileName
+        cb(null, fullPath)
+    },
 });
 
 const isHeroku = process.env.NODE_ENV === "production";
@@ -50,13 +60,13 @@ export const publicMiddleware = (req, res, next) => {
 };
 
 export const uploadAvatar = multer({
-  dest: "uploads/avatars",
+  dest: "uploads/avatars/",
   limits: { filesize: 30000 },
   storage: isHeroku ? s3ImageUploder : undefined,
 })
 
 export const uploadVideo = multer({
-  dest: "uploads/videos",
+  dest: "uploads/videos/",
   limits: { filesize: 100000 },
   storage: isHeroku ? s3VideoUploder : undefined,
 })

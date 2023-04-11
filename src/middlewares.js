@@ -50,7 +50,7 @@ export const publicMiddleware = (req, res, next) => {
 };
 
 export const uploadAvatar = multer({
-  dest: "uploads/avatar",
+  dest: "uploads/avatars",
   limits: { filesize: 30000 },
   storage: isHeroku ? s3ImageUploder : undefined,
 })

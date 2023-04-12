@@ -19,7 +19,7 @@ export const imageDelete = async (req, res, next) => {
     const key = `avatars/${req.session.user.avatarUrl.split('/')[4]}`;
     const bucketParams = { Bucket: "ho-tube", Key: key };
     try {
-        const data = await S3Client.send(new DeleteObjectCommand(bucketParams));
+        const data = await s3.send(new DeleteObjectCommand(bucketParams));
         console.log("Success. Avatar deleted", data);
     } catch (error) {
         console.log("Error", error);

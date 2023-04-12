@@ -13,6 +13,7 @@ import {
   userProtectMiddleware,
   publicMiddleware,
   uploadAvatar,
+  imageDelete,
 } from "../middlewares";
 
 const userRouter = express.Router();
@@ -29,7 +30,7 @@ userRouter
   .route("/edit")
   .all(userProtectMiddleware)
   .get(getEdit)
-  .post(uploadAvatar.single("avatar"), postEdit);
+  .post(uploadAvatar.single("avatar"), postEdit, imageDelete)
 
 userRouter.get("/:id([0-9a-f]{24})", userProfile);
 

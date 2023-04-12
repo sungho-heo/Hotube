@@ -1,6 +1,6 @@
 import multer from "multer";
 import multerS3 from "multer-s3";
-import { S3Client }  from "@aws-sdk/client-s3";
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3"
 
 const s3 = new S3Client({
     region: "ap-northeast-2",
@@ -9,6 +9,24 @@ const s3 = new S3Client({
         secretAccessKey: process.env.AWS_SECRET,
     },
 });
+
+export const imageDelete = async (req, res, next) => {
+    console.log(req.file);
+    if (!req.file) {
+        console.log(req.file);
+        return next();
+    }
+    const key = `avatars/${req.session.user.avatarUrl.split('/')[4]}`;
+    const bucketParams = { Bucket: "ho-tube", Key: key };
+    try {
+        const data = await S3Client.send(new DeleteObjectCommand(bucketParams));
+        console.log("Success. Avatar deleted", data);
+    } catch (error) {
+        console.log("Error", error);
+        return res.redirect("/users/edit");
+    };
+    next();
+}
 
 const s3ImageUploder = multerS3({
     s3: s3,
